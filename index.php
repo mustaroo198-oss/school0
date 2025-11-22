@@ -1,0 +1,145 @@
+<?php
+session_start();
+
+// كلمة المرور الصحيحة
+$correct_password = "12345";
+
+// التعامل مع زر الخروج
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
+
+// التعامل مع تسجيل الدخول
+if (isset($_POST['password'])) {
+    if ($_POST['password'] === $correct_password) {
+        $_SESSION['logged_in'] = true;
+    } else {
+        $error = "كلمة المرور خاطئة!";
+    }
+}
+
+// لو مش مسجل دخول → اعرض نموذج الباسورد
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true):
+?>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول</title>
+    <style>
+        body { font-family: Arial; background: #f2f2f2; text-align: center; padding: 50px; }
+        input, button { padding: 10px; font-size: 16px; margin-top: 10px; }
+        button { cursor: pointer; background: #0077ff; color: white; border: none; border-radius: 5px; }
+        button:hover { background: #005dcc; }
+        .box { background: white; padding: 25px; width: 300px; margin: auto; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+        #error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>ادخل كلمة المرور للوصول للموقع</h2>
+        <form method="POST">
+            <input type="password" name="password" placeholder="كلمة المرور" required><br>
+            <button type="submit">دخول</button>
+        </form>
+        <?php if(isset($error)) echo "<div id='error'>$error</div>"; ?>
+    </div>
+</body>
+</html>
+<?php
+exit(); // يمنع تحميل باقي المحتوى إذا لم يدخل الباسورد
+endif;
+?>
+
+<!-- محتوى الموقع بعد تسجيل الدخول -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مدرسه/عبدالرحمن رضوان اصلان</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 40px; text-align: center; }
+        .box { background: white; padding: 25px; width: 350px; margin: auto; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+        input, button { padding: 10px; width: 90%; margin-top: 10px; font-size: 16px; }
+        button { background: #0077ff; border: none; color: white; cursor: pointer; border-radius: 5px; }
+        button:hover { background: #005dcc; }
+        #result { margin-top: 15px; font-size: 18px; font-weight: bold; }
+        .table-box { width: 90%; margin: 40px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 0 10px #ccc; }
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        table th, table td { padding: 12px; border: 1px solid #ddd; font-size: 16px; }
+        table th { background: #0077ff; color: white; }
+        h3 { margin-bottom: 15px; }
+        .logout { margin-top: 20px; }
+        .logout a { text-decoration: none; padding: 8px 15px; background: #ff4444; color: white; border-radius: 5px; }
+        .logout a:hover { background: #cc0000; }
+    </style>
+</head>
+<body>
+
+<div class="logout">
+    <a href="index.php?logout=true">تسجيل الخروج</a>
+</div>
+
+<div class="box">
+    <h2>البحث عن كود الطالب / الطالبه فصل 6/1</h2>
+    <input type="text" id="nameInput" placeholder="اكتب اسم الطالب">
+    <button onclick="search()">بحث</button>
+    <div id="result"></div>
+</div>
+
+<div class="table-box">
+    <h3>جدول الحصص الاسبوعي "قابل للتغير"</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>اليوم</th>
+                <th>الحصة الأولى</th>
+                <th>الحصة الثانية</th>
+                <th>الحصة الثالثة</th>
+                <th>الحصة الرابعة</th>
+                <th>فسحه</th>
+                <th>الحصه الخامسه</th>
+                <th>الحصه السادسه</th>
+                <th>الحصه السابعه</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>السبت</td><td>F</td><td>انشطه</td><td>رياده</td><td>عربي</td><td>----</td><td>رياضه</td><td>دين</td><td>----</td>
+            </tr>
+            <tr>
+                <td>الاحد</td><td>حاسب</td><td>تاريخ</td><td>فلسفه</td><td>حاسب</td><td>----</td><td>عربي</td><td>رياضه</td><td>----</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const database = {
+        "عمار شعيب": "1",
+        "عمر المراطن": "2",
+        "عمر حدوه": "3",
+        "عمر خضير": "4"
+    };
+
+    function search() {
+        const name = document.getElementById("nameInput").value.trim();
+        const resultDiv = document.getElementById("result");
+
+        if (name === "") {
+            resultDiv.innerHTML = "رجاءً اكتب اسم الطالب أولاً.";
+            return;
+        }
+
+        if (database[name]) {
+            resultDiv.innerHTML = "كود " + name + " هو: <span style='color: green'>" + database[name] + "</span>";
+        } else {
+            resultDiv.innerHTML = "ERROR 404";
+        }
+    }
+</script>
+
+</body>
+</html>
