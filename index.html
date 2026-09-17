@@ -416,14 +416,14 @@
     }
 
     /* =========================
-       CART
+       CART (تم تصغير الحجم والمسافات لتظهر الأزرار بوضوح في الموبايل)
     ========================= */
 
     .drawer{
       position:fixed;
       top:0;
       right:-450px;
-      width:min(450px,100%);
+      width:min(420px,100%);
       height:100vh;
       background:var(--dark2);
       z-index:3000;
@@ -439,7 +439,7 @@
     }
 
     .drawer-head{
-      padding:20px;
+      padding:14px 18px;
       border-bottom:1px solid var(--border);
       display:flex;
       align-items:center;
@@ -448,33 +448,38 @@
       color:var(--gold);
     }
 
+    .drawer-head h2{
+      font-size:18px;
+    }
+
     .drawer-head button{
       border:0;
       background:var(--dark3);
       color:var(--gold);
-      width:38px;
-      height:38px;
-      border-radius:10px;
+      width:32px;
+      height:32px;
+      border-radius:8px;
       border:1px solid var(--border);
     }
 
     .cart-items{
       flex:1;
       overflow:auto;
-      padding:15px;
+      padding:10px 14px;
     }
 
     .cart-item{
       display:flex;
       gap:10px;
       border-bottom:1px solid var(--border);
-      padding:12px 0;
+      padding:10px 0;
+      align-items:center;
     }
 
     .cart-thumb{
-      width:75px;
-      height:75px;
-      border-radius:12px;
+      width:55px;
+      height:55px;
+      border-radius:10px;
       overflow:hidden;
       background:var(--dark3);
       flex-shrink:0;
@@ -491,53 +496,60 @@
     }
 
     .cart-info h4{
-      margin-bottom:5px;
+      font-size:14px;
+      margin-bottom:3px;
       color:var(--white);
     }
 
     .cart-info small{
       color:var(--gold);
       font-weight:bold;
+      font-size:12px;
     }
 
     .qty{
       display:flex;
       align-items:center;
-      gap:7px;
-      margin-top:8px;
+      gap:6px;
+      margin-top:5px;
     }
 
     .qty button{
-      width:27px;
-      height:27px;
+      width:24px;
+      height:24px;
       border:0;
-      border-radius:7px;
+      border-radius:6px;
       background:var(--dark3);
       color:var(--gold);
       font-weight:bold;
+      font-size:12px;
       border:1px solid var(--border);
+    }
+
+    .qty span{
+      font-size:13px;
     }
 
     .remove{
       border:0;
       background:none;
       color:var(--orange);
-      margin-top:5px;
-      font-size:12px;
+      margin-top:3px;
+      font-size:11px;
       cursor:pointer;
     }
 
     .drawer-foot{
       border-top:1px solid var(--border);
-      padding:18px;
+      padding:14px 18px;
       background:var(--dark);
     }
 
     .total-row{
       display:flex;
       justify-content:space-between;
-      margin-bottom:14px;
-      font-size:19px;
+      margin-bottom:10px;
+      font-size:16px;
       font-weight:900;
       color:var(--gold);
     }
@@ -659,13 +671,13 @@
     .main-btn{
       width:100%;
       border:0;
-      border-radius:13px;
-      padding:14px;
+      border-radius:12px;
+      padding:12px;
       background:linear-gradient(135deg,var(--orange),#ff9f43);
       color:var(--white);
       font-weight:bold;
-      font-size:16px;
-      box-shadow:0 8px 20px rgba(255,122,0,.25);
+      font-size:15px;
+      box-shadow:0 6px 15px rgba(255,122,0,.25);
       transition:.2s;
     }
 
@@ -894,16 +906,17 @@
     }
 
     .empty{
-      padding:40px;
+      padding:30px;
       text-align:center;
       color:var(--gray);
       background:var(--dark3);
-      border-radius:15px;
+      border-radius:12px;
       border:1px dashed var(--border);
+      font-size:14px;
     }
 
     /* =========================
-       RESPONSIVE (التعديلات هنا للموبايل والشاشات الصغيرة)
+       RESPONSIVE
     ========================= */
 
     @media(max-width:1000px){
@@ -931,11 +944,11 @@
         font-size:36px;
       }
       .products{
-        grid-template-columns:repeat(2,1fr); /* عرض منتجين بجانب بعضهما في الموبايل المتوسط */
+        grid-template-columns:repeat(2,1fr);
         gap: 10px;
       }
       .product-img{
-        height: 150px; /* تقليل ارتفاع صورة المنتج لتناسب الموبايل */
+        height: 150px;
       }
       .product-body{
         padding: 10px;
@@ -964,11 +977,11 @@
 
     @media(max-width:500px){
       .products{
-        grid-template-columns:repeat(2,1fr); /* الحفاظ على منتجين بجانب بعضهما حتى في الشاشات الصغيرة جداً لتوفير مساحة ممتازة */
+        grid-template-columns:repeat(2,1fr);
         gap: 8px;
       }
       .product-img{
-        height: 125px; /* تصغير الصورة أكثر للموبايلات الصغيرة */
+        height: 125px;
       }
       .product-body {
         padding: 8px;
@@ -978,7 +991,7 @@
         margin-bottom: 4px;
       }
       .product-desc {
-        display: none; /* إخفاء الوصف الطويل في الشاشات الصغيرة جداً لتصبح البطاقة مرتبة وصغيرة */
+        display: none;
       }
       .product-bottom {
         flex-direction: column;
